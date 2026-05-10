@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient-Centered Dentistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2035;
+    --navy-mid: #163352;
+    --teal: #1E7F8E;
+    --teal-light: #2BA5B8;
+    --cream: #F7F3EC;
+    --cream-dark: #EDE7DB;
+    --gold: #C49A3C;
+    --gold-light: #E8C46A;
+    --text: #1A1A2E;
+    --text-mid: #3D4460;
+    --text-light: #6B7290;
+    --white: #FFFFFF;
+    --border: rgba(13,32,53,0.12);
+    --nav-h: 62px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: var(--navy);
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    border-bottom: 2px solid var(--gold);
+    padding: 0 28px;
+  }
+  .nav-inner {
+    display: contents;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    justify-self: start;
+  }
+  .nav-scroll {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: center;
+  }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition: all 0.18s;
+    line-height: 1;
+  }
+  .nav-btn:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+  .nav-btn.active {
+    color: var(--gold-light);
+    background: rgba(196,154,60,0.15);
+    border: 1px solid rgba(196,154,60,0.3);
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; padding-top: var(--nav-h); min-height: 100vh; }
+  .page.active { display: block; animation: fadeIn 0.35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0E3D4F 100%);
+    padding: 80px 40px 70px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,127,142,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  /* inner wrapper constrains hero text width and centers it */
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 22px;
+  }
+  .hero h1 em {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.72);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── CONTENT ─── */
+  .content {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 70px 48px 90px;
+  }
+
+  .section {
+    margin-bottom: 72px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    max-width: 60px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 22px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy-mid);
+    margin-bottom: 14px;
+    margin-top: 36px;
+    padding-left: 16px;
+    border-left: 3px solid var(--gold);
+  }
+
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  p {
+    color: var(--text);
+    margin-bottom: 18px;
+    font-weight: 300;
+    font-size: 16.5px;
+  }
+
+  p strong {
+    font-weight: 600;
+    color: var(--navy-mid);
+  }
+
+  /* ─── PULLQUOTE ─── */
+  .pullquote {
+    margin: 40px 0;
+    padding: 28px 36px;
+    background: var(--navy);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--cream);
+    margin: 0;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* ─── CALLOUT BOXES ─── */
+  .callout {
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--teal);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .callout-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .callout p { margin-bottom: 8px; font-size: 15.5px; }
+
+  .callout-gold {
+    background: rgba(196,154,60,0.06);
+    border: 1px solid rgba(196,154,60,0.2);
+    border-top: 3px solid var(--gold);
+  }
+  .callout-gold .callout-title { color: var(--gold); }
+
+  /* ─── TABLES ─── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 32px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 20px rgba(13,32,53,0.08);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  thead tr {
+    background: var(--navy);
+  }
+  thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 400;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  thead th:last-child { border-right: none; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:nth-child(even) { background: rgba(247,243,236,0.6); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td {
+    padding: 13px 18px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 300;
+    vertical-align: top;
+    border-right: 1px solid var(--border);
+  }
+  tbody td:last-child { border-right: none; }
+  tbody td strong { font-weight: 600; color: var(--navy-mid); }
+  .td-avoid { color: #B54A4A; }
+  .td-use { color: #1E7F8E; }
+
+  /* ─── BULLET LISTS ─── */
+  .bullet-list {
+    list-style: none;
+    margin: 16px 0 24px;
+    padding: 0;
+  }
+  .bullet-list li {
+    font-size: 15.5px;
+    font-weight: 300;
+    color: var(--text);
+    padding: 8px 0 8px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 400;
+  }
+
+  /* ─── NUMBERED STEPS ─── */
+  .steps {
+    counter-reset: steps;
+    list-style: none;
+    margin: 24px 0;
+  }
+  .steps li {
+    counter-increment: steps;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .steps li::before {
+    content: counter(steps, decimal-leading-zero);
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: var(--teal);
+    font-weight: 300;
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 32px;
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .step-desc { font-size: 15px; font-weight: 300; color: var(--text-mid); line-height: 1.65; }
+
+  /* ─── CARD GRID ─── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin: 28px 0;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 8px 30px rgba(13,32,53,0.1); transform: translateY(-2px); }
+  .card-icon {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .card-body { font-size: 14.5px; font-weight: 300; color: var(--text-mid); line-height: 1.6; }
+
+  /* ─── JOURNEY TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+    margin: 32px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--teal), var(--gold), var(--teal));
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .timeline-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .timeline-body { font-size: 15.5px; font-weight: 300; color: var(--text-mid); line-height: 1.65; }
+
+  /* ─── CASE STUDY ─── */
+  .case-study {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 36px 0;
+    box-shadow: 0 4px 24px rgba(13,32,53,0.07);
+  }
+  .case-header {
+    background: var(--navy-mid);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .case-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    background: rgba(196,154,60,0.15);
+    border: 1px solid rgba(196,154,60,0.3);
+    padding: 4px 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .case-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .case-body { padding: 28px; }
+  .case-section {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .case-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cs-problem { color: #B54A4A; }
+  .cs-analysis { color: var(--teal); }
+  .cs-improved { color: #3A9067; }
+  .case-section p { font-size: 15.5px; margin-bottom: 8px; }
+
+  /* ─── FRAMEWORK BOX ─── */
+  .framework {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: 8px;
+    padding: 40px 44px;
+    margin: 36px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .framework::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,154,60,0.1) 0%, transparent 70%);
+  }
+  .framework-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .framework-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .framework-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+    gap: 16px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .fw-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .fw-item-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+  .fw-item-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .fw-item-desc { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.5; flex: 1; }
+  @media (max-width: 700px) {
+    .framework-items { grid-template-columns: 1fr; max-width: 100%; }
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  /* ─── STAT ROW ─── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .stat-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 20px 22px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; font-weight: 300; color: var(--text-light); }
+
+  /* ─── TOOL CARD ─── */
+  .tool-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .tool-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .tool-card p { font-size: 15px; margin-bottom: 10px; }
+
+  /* ─── CONCEPT TAG ─── */
+  .concept-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(30,127,142,0.08);
+    border: 1px solid rgba(30,127,142,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin: 0 4px 4px 0;
+  }
+
+  /* ─── FOOTER ─── */
+  .page-footer {
+    background: var(--navy);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-top: 2px solid var(--gold);
+  }
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--cream);
+  }
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+
+  /* ─── ACCESSIBILITY COLOR INDICATORS ─── */
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .badge-teal { background: rgba(30,127,142,0.1); color: var(--teal); border: 1px solid rgba(30,127,142,0.25); }
+  .badge-gold { background: rgba(196,154,60,0.1); color: var(--gold); border: 1px solid rgba(196,154,60,0.25); }
+  .badge-red { background: rgba(181,74,74,0.08); color: #B54A4A; border: 1px solid rgba(181,74,74,0.2); }
+
+  /* ─── CITED STAT CARDS ─── */
+  .cited-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 28px auto 0;
+    max-width: 660px;
+  }
+  @media (max-width: 560px) {
+    .cited-stat-row { grid-template-columns: 1fr; max-width: 100%; }
+  }
+  .cited-stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--teal);
+    border-radius: 6px;
+    padding: 30px 26px 26px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(13,32,53,0.06);
+  }
+  .cited-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .cited-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .cited-stat-caption {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ─── CITATION LINE ─── */
+  .citation-line {
+    text-align: center;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-light);
+    margin-top: 22px;
+    line-height: 1.7;
+  }
+  .citation-line em { font-style: italic; }
+  .pubmed-btn {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--white);
+    background: var(--teal);
+    padding: 8px 18px;
+    border-radius: 3px;
+    transition: background 0.18s;
+  }
+  .pubmed-btn:hover { background: var(--navy); }
+
+
+  .cycle-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 28px 0;
+    padding-left: 8px;
+    gap: 0;
+  }
+  .cycle-node {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 22px;
+    width: 100%;
+    max-width: 560px;
+  }
+  .cycle-node--end {
+    border-left-color: #B54A4A;
+  }
+  .cycle-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--teal);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 24px;
+  }
+  .cycle-node--end .cycle-num { color: #B54A4A; }
+  .cycle-text {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+  .cycle-text strong { color: var(--navy); font-weight: 600; }
+  .cycle-arrow {
+    font-size: 18px;
+    color: var(--teal);
+    padding: 6px 0 6px 28px;
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 860px) {
+    .content { padding: 50px 28px 70px; }
+    .hero { padding: 60px 24px 60px; }
+  }
+  @media (max-width: 680px) {
+    nav {
+      grid-template-columns: 1fr;
+      padding: 0 8px;
+      height: auto;
+      min-height: var(--nav-h);
+      flex-direction: column;
+    }
+    .nav-brand { display: none; }
+    .nav-scroll {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 8px 0;
+      gap: 4px;
+    }
+    nav > div:last-child { display: none; }
+    .nav-btn {
+      font-size: 9.5px;
+      padding: 5px 10px;
+    }
+    .page { padding-top: 56px; }
+    .hero { padding: 48px 20px 50px; }
+    .content { padding: 40px 20px 60px; }
+    .page-footer { padding: 30px 24px; }
+    .framework { padding: 24px 20px; }
+    .cycle-node { max-width: 100%; }
+  }
+
+  /* ─── VIDEO EMBED ─── */
+  .video-wrap {
+    max-width: 700px;
+    margin: 40px auto 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(13,32,53,0.12);
+    position: relative;
+    padding-top: 56.25%;
+    background: var(--navy);
+  }
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Patient Centered Dentistry</div>
+  <div class="nav-scroll">
+    <button class="nav-btn active" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" onclick="showPage('problem')">The Problem</button>
+    <button class="nav-btn" onclick="showPage('concepts')">Concepts</button>
+    <button class="nav-btn" onclick="showPage('systems')">Systems</button>
+    <button class="nav-btn" onclick="showPage('access')">Accessibility</button>
+  </div>
+  <div></div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 1: HOME
+══════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Page 1 · Home</div>
+      <h1>Rethinking the Patient Experience <em>in Dentistry</em></h1>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="section">
+      <p>Dental anxiety is more common than many think and is one of the biggest barriers to consistent business from patients in dental care. This website guides dentists seeking to enter the market or are already in the market on how to properly communicate, create a comfortable and more accessible environment, and improve patient experience. This guide draws from literature and medicine focusing on firsthand observations, patient narratives, and disability studies.</p>
+    </div>
+
+    <div class="section">
+      <h2>What Is Covered</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Patient Fear &amp; Anxiety</div>
+          <div class="card-body">How communication, environment, and past experiences shape dental anxiety.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Language &amp; Patient Communication</div>
+          <div class="card-body">How wording, reassurance, and explanation can influence patient trust.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Dental Care Systems</div>
+          <div class="card-body">Different ways dental offices can improve comfort, preparation, and communication.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Accessibility</div>
+          <div class="card-body">How sensory, communication, and environmental barriers affect different patients.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content" style="padding-top:0;padding-bottom:48px;">
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=12&end=78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-note">Page 1 of 5</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 2: THE PROBLEM
+══════════════════════════════════════════════════ -->
+<div id="page-problem" class="page">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Page 2 · The Problem</div>
+      <h1>Why Patients Fear Dentistry <em>and Why That Fear Persists</em></h1>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="callout callout-gold">
+      <div class="callout-title">The Scale of the Problem</div>
+      <p>Research has revealed that a sizable portion of the patient population has anxiety ranging from moderate to high. A decent chunk that experiences anxiety is classified as having dental phobia. This results in many patients avoiding dental care for years at a time.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Key Statistics From Research</div>
+      <h2>What the Data Shows</h2>
+
+      <div class="cited-stat-row">
+        <div class="cited-stat-card">
+          <div class="cited-stat-num">49.2%</div>
+          <div class="cited-stat-label">Moderate or High Dental Anxiety</div>
+          <div class="cited-stat-caption">Almost half of patients seeking dental care report moderate to high levels of anxiety.</div>
+        </div>
+        <div class="cited-stat-card">
+          <div class="cited-stat-num">20%</div>
+          <div class="cited-stat-label">Specific Dental Phobia</div>
+          <div class="cited-stat-caption">One in five patients meets criteria for dental phobia.</div>
+        </div>
+      </div>
+
+
+      <div class="citation-line">
+        Source: Tellez et al., <em>Prevalence and correlates of dental anxiety in patients seeking dental care.</em>
+        <br>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/25346261/" target="_blank" class="pubmed-btn">View PubMed Source ↗</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">The Root of the Problem</div>
+      <h2>Fear as a Systemic Design Flaw</h2>
+      <p>Dental anxiety is the number barrier for inconsistent patient attendance. It is mistaken that pain is a major concern for anxiety and fear, but reality is that pain is only a fraction of the experience many endure. Long lasting negative emotions connected to dental practices are linked to uncertainty, loss of control, and unpleasant interactions. Most of these feeling are introduced in childhood and usually are reinforced over time through similar interactions.</p>
+      <p>In dental practices anxiety is typically treated as an external factor rather than an internal systematic design flaw. Patients are sometimes reassured through vague response from the dentist or receive little to no reassurance. Dentist may commonly say that the procedure "won't hurt" or is "almost done" to reassure the patient, but the truth is that type of communication is not as effective as well-spoken explanations. Over time vague communication can lead to broken trust and patients will begin to expect unpleasant experiences for future appointments.</p>
+    </div>
+
+    <div class="callout callout-gold">
+      <div class="callout-title">Key Takeaway</div>
+      <p>The dental providers inability to reassure effectively and the patient's reality is a reliable predictor for long term dental avoidance. Trust comes from well-spoken preparation and explanation.</p>
+    </div>
+
+    <div class="section">
+      <h2>Efficiency Over Experience: The Default Model</h2>
+      <p>From my firsthand experience working in a pediatric dentist/orthodontics office, I can reasonably say that most dental offices are designed for efficiency rather than emotional comfortability. Staff and procedure explanations are not commonly structured with patient accessibility or feelings in mind.</p>
+
+      <h3>Common Structural Triggers of Dental Anxiety</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sources of Anxiety</th>
+              <th>How It Appears in Practice</th>
+              <th>Patient Experience</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Communication</strong></td>
+              <td>Vague reassurances; clinical terminology; rushed explanations</td>
+              <td>Confusion, unmet expectations, loss of trust</td>
+            </tr>
+            <tr>
+              <td><strong>Environment</strong></td>
+              <td>Bright overhead lights; instrument sounds; visible clinical tools</td>
+              <td>Heightened alertness; anticipatory anxiety</td>
+            </tr>
+            <tr>
+              <td><strong>Control</strong></td>
+              <td>No stop signal; no procedural preview; no input into pacing</td>
+              <td>Helplessness; vulnerability; dissociation</td>
+            </tr>
+            <tr>
+              <td><strong>Shame</strong></td>
+              <td>Judgmental language about oral hygiene; corrective framing</td>
+              <td>Embarrassment; guilt; avoidance of future care</td>
+            </tr>
+            <tr>
+              <td><strong>Prior Narrative</strong></td>
+              <td>Childhood trauma; unaddressed past experiences</td>
+              <td>Anticipatory dread; adrenaline response</td>
+            </tr>
+            <tr>
+              <td><strong>Time Pressure</strong></td>
+              <td>Rushed appointments; minimal intake review</td>
+              <td>Feeling dismissed; reduced sense of safety</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>How Fear Becomes Chronic</h2>
+      <p>Chronic dental anxiety is rarely developed from a single unpleasant experience. It is understood as cycle of negative reinforcement; in other words, a negative narrative is formed after each negative experience.</p>
+
+      <div class="cycle-flow">
+        <div class="cycle-node">
+          <div class="cycle-num">01</div>
+          <div class="cycle-text"><strong>Negative Experience</strong><br>Pain, insufficient communication, or lack of preparation</div>
+        </div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">
+          <div class="cycle-num">02</div>
+          <div class="cycle-text"><strong>Narrative Formation</strong><br>"Dental visits are uncomfortable or painful."</div>
+        </div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">
+          <div class="cycle-num">03</div>
+          <div class="cycle-text"><strong>Anticipatory Anxiety</strong><br>Heightened dread before each visit</div>
+        </div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">
+          <div class="cycle-num">04</div>
+          <div class="cycle-text"><strong>Physiological Response</strong><br>Heightened sensitivity; adrenaline response during procedures</div>
+        </div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">
+          <div class="cycle-num">05</div>
+          <div class="cycle-text"><strong>Narrative Confirmation</strong><br>Even routine visits feel distressing, reinforcing the original belief</div>
+        </div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node cycle-node--end">
+          <div class="cycle-num">06</div>
+          <div class="cycle-text"><strong>Avoidance &amp; Shame</strong><br>Delayed care, worsening oral health, and reduced likelihood of returning</div>
+        </div>
+      </div>
+      <p style="margin-top:24px;">Breaking this cycle requires restructuring the current flawed structure to one that leaves the patient feeling more comfortable in the dental environment.</p>
+    </div>
+
+  </div>
+
+  <div class="content" style="padding-top:0;padding-bottom:48px;">
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=78&end=170" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-note">Page 2 of 5</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 3: CORE CONCEPTS
+══════════════════════════════════════════════════ -->
+<div id="page-concepts" class="page">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Page 3 · Core Concepts</div>
+      <h1>Applying Literature &amp; Medicine to <em>Dental Practice</em></h1>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="callout">
+      <div class="callout-title">Insights</div>
+      <p>The concepts from this page are drawn from medical humanities, narratives, and disability studies.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Concept #1</div>
+      <h2>The Medical Model vs. The Social Model</h2>
+      <p>One of the most important topics in medicine is the difference between the medical model and the social model of healthcare. The medical model focuses on identifying the underlying issue and finding a "fix" by treating the condition. The social model focuses on aspects like the environment, communication, and structure, and how they are limiting.</p>
+      <p>In dentistry, the shift from the medical model to the social model requires recognition of how fear and anxiety are shaped from the system and not a natural trait of the patient. Patients who avoid returning to the dentist are typically just responding to prior experiences that were overwhelming.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Medical Model Approach</th>
+              <th>Social Model Approach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Focus</strong></td>
+              <td>Diagnosing and treating the condition</td>
+              <td>Improving the environment, communication, and patient experience</td>
+            </tr>
+            <tr>
+              <td><strong>View of the Patient</strong></td>
+              <td>Focused on the condition</td>
+              <td>Recognizing the patient's preferences, emotions, and experiences</td>
+            </tr>
+            <tr>
+              <td><strong>Source of Barriers</strong></td>
+              <td>Patient's anxiety/fear or non-compliance</td>
+              <td>Environmental and Communication barriers</td>
+            </tr>
+            <tr>
+              <td><strong>Intervention</strong></td>
+              <td>Procedure; sedation</td>
+              <td>Structural redesign of communication and environment</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Concept #2</div>
+      <h2>The Medical Gaze</h2>
+      <p>The concept of the medical gaze explains how patients are typically viewed as a diagnosis or procedure which is very surface level rather than a being with emotions and an identity that is driven through personal narratives. When dental providers focus on efficiency rather than engagement, patients are more likely to feel misunderstood or unheard.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Concept #3</div>
+      <h2>Language, Metaphor, and Patient Perception</h2>
+      <p>Words can carry a lot of power and meaning behind them, sometimes more than we realize. The use of language and metaphors can shape a patient's perception and not always in a healthy way. As discussed in Susan Sontag's <em>Illness as a Metaphor</em>, the way we approach illness and treatment can influence how people respond to their experience.</p>
+      <p>In dentistry, language that implies pain or urgency can increase the patient's anxiety, and unclear explanations can create some confusion. It is advised to use more neutral language that can help patients feel more in control of their situations.</p>
+
+      <h3>Examples of Patient Communication</h3>
+      <ul class="bullet-list">
+        <li><strong style="color:#B54A4A;">"This might be uncomfortable"</strong> — Vague; leave patient unprepared</li>
+        <li><strong style="color:#B54A4A;">"Just a little pinch"</strong> — Minimizing; Loss of trust if sensation exceeds "little"</li>
+        <li><strong style="color:#B54A4A;">"We need to fix this immediately"</strong> — Urgency can trigger a threat response; can lead to avoidance</li>
+        <li><strong style="color:#2E7D5E;">"You may feel some pressure here, it will last about ten seconds"</strong> — Specific, accurate, allows patient to prepare themselves</li>
+        <li><strong style="color:#2E7D5E;">"We're going to work on this together"</strong> — Patient feels like they have support and are not alone in this</li>
+      </ul>
+
+      <h3>Examples of Metaphors</h3>
+      <ul class="bullet-list">
+        <li><strong style="color:#B54A4A;">"Your teeth are decaying"</strong> — leads to hopelessness; fear</li>
+        <li><strong style="color:#B54A4A;">"Your teeth are in really bad shape"</strong> — causes embarrassment; shame</li>
+        <li><strong style="color:#B54A4A;">"You've neglected this area"</strong> — feelings of judgment</li>
+        <li><strong style="color:#2E7D5E;">"This is something we can improve together"</strong> — Encourages collaboration and support rather causing fear</li>
+        <li><strong style="color:#2E7D5E;">"We're going to take this step by step"</strong> — Helps the patient feel more in control of the situation</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Concept #4</div>
+      <h2>Patient Narratives and Past Experiences</h2>
+      <p>The personal stories patients have lived through that are built around their experiences in dental offices are key for understanding and predicting patient behavior. As discussed in Eli Clare's <em>Brilliant Imperfection</em>, experiences shape how individuals perceive themselves and the systems around them. A single negative experience can be what starts the cycle and influence behaviors that can reinforce future experiences.</p>
+
+      <h3>Common Patient Narratives</h3>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-body">"I desperately need to go to the dentist but I have severe trauma from a specific incident and subsequent visits after that. Does anyone know of any trauma informed and VERY non-judging dentists?" – Anonymous</div>
+        </div>
+        <div class="card">
+          <div class="card-body">"I'm on the verge of a panic attack ... I had ONE dentist that would keep telling me what she's doing at all times and it was so helpful." – Anonymous</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">Page 3 of 5</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 5: SYSTEMS & SOLUTIONS
+══════════════════════════════════════════════════ -->
+<div id="page-systems" class="page">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Page 4 · Systems & Solutions</div>
+      <h1>Improving the <em>Patient Experience in Dentistry</em></h1>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="framework">
+      <div class="framework-title">The Three Core Patient Support Systems</div>
+      <div class="framework-items">
+        <div class="fw-item">
+          <div class="fw-item-num">System #1</div>
+          <div class="fw-item-title">Anxiety Screening</div>
+          <div class="fw-item-desc">Identify underlying issues prior to appointment through online questionnaires</div>
+        </div>
+        <div class="fw-item">
+          <div class="fw-item-num">System #2</div>
+          <div class="fw-item-title">Five Minute Orientation</div>
+          <div class="fw-item-desc">Anxiety screening review, expectations, and trust building</div>
+        </div>
+        <div class="fw-item">
+          <div class="fw-item-num">System #3</div>
+          <div class="fw-item-title">Treatment Preview</div>
+          <div class="fw-item-desc">Reduce uncertainty through clear procedural explanation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">System #1</div>
+      <h2>Anxiety Screening</h2>
+      <p>A completed anxiety screening prior to appointments helps determine causes of patients past dental experiences so dental providers can approach patients in ways tailored to their specific needs.</p>
+
+      <h3>Anxiety Screening Question Examples</h3>
+      <ul class="bullet-list">
+        <li><strong>Prior experience:</strong> "How would you describe your past experiences with dental care?"</li>
+        <li><strong>Fears:</strong> "Are there any aspects of dental care that cause you anxiety? (e.g., needles, sounds, bright lights, loss of control)"</li>
+        <li><strong>Communication preferences:</strong> "Would you prefer step-by-step explanations, or would you prefer that we proceed with the procedure."</li>
+        <li><strong>Stop signal:</strong> "Do you have a preferred signal or way of letting us know if you need a break at any time"</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">System #2</div>
+      <h2>The Five Minute Protocol</h2>
+      <p>First impressions influence how patients perceive your dental business. The "Five Minute Protocol" focuses on effectively greeting patients, acknowledging, and comforting patients based off their screening.</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-content">
+            <div class="step-title">Acknowledge by Name</div>
+            <div class="step-desc">Greet the patient by their name immediately when they arrive because names are much more personal. For example, "Hey Sarah! Are you excited you're getting braces today? How do you feel about it?"</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Review Intake</div>
+            <div class="step-desc">Review and mention any concerns on the anxiety screening with the patient to make sure that they know they have been acknowledged. For example, "Hey Sarah, I see you mentioned your bad with needles, I will make sure our team knows and they will properly address it with you."</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Provide Orientation</div>
+            <div class="step-desc">Explain the appointment structure. For example, "Today, we will start with a check-in, then we will walk you through everything that is happening before we start. The appointment will take about 30 minutes."</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Stop Signal Reminder</div>
+            <div class="step-desc">You want to remention the stop signal that was noted on the intake, so you can make sure the patient and the team are on the same page. For example, "Remember, you can raise your hand at any moment, and we will take a break, don't be worried if you must stop frequently."</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Transition to Treatment</div>
+            <div class="step-desc">Walk the patient to their procedural area and mention to them that the dentist will go over everything with them. For example, "I'll walk you over to your room, while you wait for Dr. Smith would like to watch anything."</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">System #3</div>
+      <h2>The Treatment Preview</h2>
+      <p>The treatment preview helps prepare patients by reducing uncertainty and making the patients feel less overwhelmed before the procedure begins.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>What to Include</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sequence</strong></td>
+              <td>Explain the order of the procedure</td>
+              <td>"First I'll apply a numbing gel, then the injection, then we'll wait a few minutes for it to take effect."</td>
+            </tr>
+            <tr>
+              <td><strong>Sensation</strong></td>
+              <td>Describe accurately what the patient may feel</td>
+              <td>"You will feel some pressure and vibrations, but you shouldn't feel any pain."</td>
+            </tr>
+            <tr>
+              <td><strong>Duration</strong></td>
+              <td>State a time estimate that each step of the procedure may take</td>
+              <td>"The injection takes about 30 seconds. The numbing will be done in about 5 minutes."</td>
+            </tr>
+            <tr>
+              <td><strong>Sound</strong></td>
+              <td>Explain what sounds the patient may hear</td>
+              <td>"You will hear the drill, it may sound overwhelming, but you can use headphones if that helps."</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content" style="padding-top:0;padding-bottom:48px;">
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=170&end=260" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-note">Page 4 of 5</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 6: ACCESSIBILITY
+══════════════════════════════════════════════════ -->
+<div id="page-access" class="page">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Page 5 · Accessibility</div>
+      <h1>Making Dental Care <em>More Accessible</em></h1>
+    </div>
+  </div>
+
+  <div class="content">
+
+
+    <div class="section">
+      <h2 style="text-align:center;">Common Accessibility Barriers</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Disabilities</th>
+              <th>Barriers</th>
+              <th>Accommodations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Autism</strong></td>
+              <td>Easily overwhelmed by lights, sounds, touch and sudden changes</td>
+              <td>Quieter environment, hands-on visual procedure walkthrough, sunglasses, headphones</td>
+            </tr>
+            <tr>
+              <td><strong>Tourette Syndrome</strong></td>
+              <td>Involuntary movement and speech, fear of judgment</td>
+              <td>Informed staff, longer sessions, option for private room, frequent pausing</td>
+            </tr>
+            <tr>
+              <td><strong>Deaf / Hard of Hearing</strong></td>
+              <td>Hard of hearing, verbal communication can't be relied on</td>
+              <td>Written orientations/previews, visual explanations, videos with captions, translator for big procedures</td>
+            </tr>
+            <tr>
+              <td><strong>Visual Impairment</strong></td>
+              <td>Issues navigating</td>
+              <td>Hands-on procedure preview, verbal explanations, longer appointments, more guidance</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Sensory Environment</h2>
+      <p>Dental offices can become very overwhelming for patients that struggle with sensory sensitivities, which can be seen in disorders like autism, anxiety, Tourette's, hearing, visual, etc. When handling patients with disorders it is important to be mindful of the effect of bright lights, instrument sounds, crowds, and contact.</p>
+    </div>
+
+    <div class="section">
+      <h2>Creating More Accessible Dental Care</h2>
+      <p>Accessibility within dental care needs to be addressed from the beginning of patient care. If practices wait for the issues to arise first, they are making the situation harder on the patient and themselves, which is ultimately hurting their business more than helping. It is important that each practice has a protocol for adjusting systemic patient care based on the patient and their needs.</p>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">Page 5 of 5</div>
+  </div>
+</div>
+
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
