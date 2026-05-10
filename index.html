@@ -102,34 +102,17 @@
   /* ─── HERO ─── */
   .hero {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0E3D4F 100%);
-    padding: 28px 40px 24px;
-    position: relative;
-    overflow: hidden;
+    padding: 18px 40px 28px;
     text-align: center;
+    border-bottom: 1px solid rgba(196,154,60,0.25);
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -60px;
-    width: 420px; height: 420px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(30,127,142,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -20px; left: 50%;
-    transform: translateX(-50%);
-    width: 600px; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
+
+
+
   /* inner wrapper constrains hero text width and centers it */
   .hero-inner {
     max-width: 860px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
   }
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
@@ -137,11 +120,11 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--teal-light);
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
   .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: clamp(24px, 3.5vw, 40px);
     font-weight: 700;
     color: var(--white);
     line-height: 1.2;
@@ -165,11 +148,16 @@
   .content {
     max-width: 960px;
     margin: 0 auto;
-    padding: 32px 48px 48px;
+    padding: 28px 48px 48px;
   }
 
   .section {
-    margin-bottom: 36px;
+    margin-bottom: 30px;
+  }
+  .content > .section:first-child,
+  .content > .callout:first-child,
+  .content > .framework:first-child {
+    margin-top: 0;
   }
 
   .section-label {
@@ -258,7 +246,7 @@
     border: 1px solid var(--border);
     border-top: 3px solid var(--teal);
     border-radius: 4px;
-    padding: 16px 22px;
+    padding: 20px 28px 18px;
     margin: 14px 0;
   }
   .callout-title {
@@ -267,9 +255,10 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--teal);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
   .callout p { margin-bottom: 8px; font-size: 15.5px; }
+  .content > .callout:first-child { margin-top: 0; }
 
   .callout-gold {
     background: rgba(196,154,60,0.06);
@@ -384,6 +373,15 @@
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 14px;
     margin: 14px 0;
+  }
+  .card-grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 14px 0;
+  }
+  @media (max-width: 560px) {
+    .card-grid-2x2 { grid-template-columns: 1fr; }
   }
   .card {
     background: var(--white);
@@ -640,28 +638,170 @@
   /* ─── FOOTER ─── */
   .page-footer {
     background: var(--navy);
-    padding: 24px 48px;
+    border-top: 2px solid var(--gold);
+    padding: 36px 48px 28px;
+  }
+  .footer-top {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .footer-tagline {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.45);
+  }
+  .footer-links {
+    display: flex;
+    gap: 20px;
     align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
-    border-top: 2px solid var(--gold);
   }
-  .footer-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px;
-    font-style: italic;
-    color: var(--cream);
+  .footer-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.18s;
+  }
+  .footer-link:hover { color: var(--gold-light); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.28);
   }
   .footer-note {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.28);
     text-transform: uppercase;
   }
+  @media (max-width: 680px) {
+    .footer-top { flex-direction: column; gap: 16px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .page-footer { padding: 28px 24px 20px; }
+  }
 
+
+  /* ─── SUB-PAGES (Privacy, Terms, Contact) ─── */
+  .subpage { display: none; padding-top: var(--nav-h); min-height: 100vh; }
+  .subpage.active { display: block; animation: fadeIn 0.35s ease; }
+  .subpage-content {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 52px 48px 60px;
+  }
+  .subpage-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .subpage-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    max-width: 50px;
+  }
+  .subpage-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .subpage-intro {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-mid);
+    margin-bottom: 32px;
+    margin-top: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .subpage-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+  .subpage-content p {
+    font-size: 15.5px;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 14px;
+    line-height: 1.75;
+  }
+  .subpage-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 28px;
+    transition: color 0.18s;
+  }
+  .subpage-back:hover { color: var(--navy); }
+  .contact-email-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-mid);
+  }
+  @media (max-width: 680px) {
+    .subpage-content { padding: 36px 20px 48px; }
+  }
   /* ─── ACCESSIBILITY COLOR INDICATORS ─── */
   .badge {
     display: inline-block;
@@ -767,7 +907,7 @@
     border-radius: 0 6px 6px 0;
     padding: 12px 18px;
     width: 100%;
-    max-width: 560px;
+    max-width: 100%;
   }
   .cycle-node--end {
     border-left-color: #B54A4A;
@@ -906,14 +1046,14 @@
     </div>
   </div>
 
-  <div class="content" style="padding-bottom:8px;">
+  <div class="content" style="padding-top:28px;padding-bottom:8px;">
     <div class="section">
       <p>Dental anxiety is more common than many think and is one of the biggest barriers to consistent business from patients in dental care. This website guides dentists seeking to enter the market or are already in the market on how to properly communicate, create a comfortable and more accessible environment, and improve patient experience. This guide draws from literature and medicine focusing on firsthand observations, patient narratives, and disability studies.</p>
     </div>
 
     <div class="section">
       <h2>What Is Covered</h2>
-      <div class="card-grid">
+      <div class="card-grid-2x2">
         <div class="card">
           <div class="card-title">Patient Fear &amp; Anxiety</div>
           <div class="card-body">How communication, environment, and past experiences shape dental anxiety.</div>
@@ -946,7 +1086,21 @@
   </div>
 
   <div class="page-footer">
-    <div class="footer-note">Page 1 of 5</div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Patient Centered Dentistry</div>
+        <div class="footer-tagline">An educational resource on patient experience in dentistry</div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showSubPage('privacy')">Privacy Policy</button>
+        <button class="footer-link" onclick="showSubPage('terms')">Terms</button>
+        <button class="footer-link" onclick="showSubPage('contact')">Contact</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Patient Centered Dentistry</div>
+      <div class="footer-note">Page 1 of 5</div>
+    </div>
   </div>
 </div>
 
@@ -1106,7 +1260,21 @@
   </div>
 
   <div class="page-footer">
-    <div class="footer-note">Page 2 of 5</div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Patient Centered Dentistry</div>
+        <div class="footer-tagline">An educational resource on patient experience in dentistry</div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showSubPage('privacy')">Privacy Policy</button>
+        <button class="footer-link" onclick="showSubPage('terms')">Terms</button>
+        <button class="footer-link" onclick="showSubPage('contact')">Contact</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Patient Centered Dentistry</div>
+      <div class="footer-note">Page 2 of 5</div>
+    </div>
   </div>
 </div>
 
@@ -1224,7 +1392,21 @@
 
   </div>
   <div class="page-footer">
-    <div class="footer-note">Page 3 of 5</div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Patient Centered Dentistry</div>
+        <div class="footer-tagline">An educational resource on patient experience in dentistry</div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showSubPage('privacy')">Privacy Policy</button>
+        <button class="footer-link" onclick="showSubPage('terms')">Terms</button>
+        <button class="footer-link" onclick="showSubPage('contact')">Contact</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Patient Centered Dentistry</div>
+      <div class="footer-note">Page 3 of 5</div>
+    </div>
   </div>
 </div>
 
@@ -1374,7 +1556,21 @@
   </div>
 
   <div class="page-footer">
-    <div class="footer-note">Page 4 of 5</div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Patient Centered Dentistry</div>
+        <div class="footer-tagline">An educational resource on patient experience in dentistry</div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showSubPage('privacy')">Privacy Policy</button>
+        <button class="footer-link" onclick="showSubPage('terms')">Terms</button>
+        <button class="footer-link" onclick="showSubPage('contact')">Contact</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Patient Centered Dentistry</div>
+      <div class="footer-note">Page 4 of 5</div>
+    </div>
   </div>
 </div>
 
@@ -1389,15 +1585,17 @@
     </div>
   </div>
 
-  <div class="content" style="padding-bottom:4px;">
+  <div class="content" style="padding-top:28px;padding-bottom:4px;">
 
 
     <div class="section">
-      <h2 style="text-align:center;">Common Accessibility Barriers</h2>
 
       <div class="table-wrap">
         <table>
           <thead>
+            <tr>
+              <th colspan="3" style="text-align:center; font-family:'Playfair Display',serif; font-size:22px; font-weight:600; color:var(--white); letter-spacing:0.01em; text-transform:none; padding:16px 18px 12px; border-bottom:1px solid rgba(255,255,255,0.1);">Common Accessibility Barriers</th>
+            </tr>
             <tr>
               <th>Disabilities</th>
               <th>Barriers</th>
@@ -1442,19 +1640,112 @@
 
   </div>
   <div class="page-footer">
-    <div class="footer-note">Page 5 of 5</div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Patient Centered Dentistry</div>
+        <div class="footer-tagline">An educational resource on patient experience in dentistry</div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showSubPage('privacy')">Privacy Policy</button>
+        <button class="footer-link" onclick="showSubPage('terms')">Terms</button>
+        <button class="footer-link" onclick="showSubPage('contact')">Contact</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Patient Centered Dentistry</div>
+      <div class="footer-note">Page 5 of 5</div>
+    </div>
   </div>
 </div>
 
 
+
+<!-- ══════════════════════════════════════════════════
+     SUBPAGE: PRIVACY POLICY
+══════════════════════════════════════════════════ -->
+<div id="subpage-privacy" class="subpage">
+  <div class="subpage-content">
+    <button class="subpage-back" onclick="closeSubPage()">← Back</button>
+    <div class="subpage-eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="subpage-intro">Last updated: 2026</p>
+
+    <p>Patient Centered Dentistry is an educational and informational resource focused on patient experience, accessibility, and communication in dental care.</p>
+    <p>This website does not require account creation, registration, or personal information to access its content.</p>
+    <p>Basic anonymous visitor analytics may be used in the future to better understand how the website is used and how content can be improved. No personally identifiable information is intentionally collected.</p>
+    <p>Some pages may include embedded content from third-party platforms such as YouTube. These services may use cookies or collect usage data independently. Please refer to their respective privacy policies for more information.</p>
+    <p>Advertising or analytics services may be added in the future. If significant changes are made to how visitor information is handled, this page will be updated accordingly.</p>
+    <p>Any information voluntarily submitted through future contact forms or email communication will only be used for communication purposes and will not be sold or shared.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SUBPAGE: TERMS
+══════════════════════════════════════════════════ -->
+<div id="subpage-terms" class="subpage">
+  <div class="subpage-content">
+    <button class="subpage-back" onclick="closeSubPage()">← Back</button>
+    <div class="subpage-eyebrow">Legal</div>
+    <h1>Terms of Use</h1>
+    <p class="subpage-intro">Please read before using this website.</p>
+
+    <p>The content on this website is provided for informational and educational purposes only. It should not be interpreted as professional dental, medical, legal, or financial advice.</p>
+    <p>While efforts are made to keep information accurate and up to date, no guarantee is made regarding completeness, accuracy, or current applicability.</p>
+    <p>Use of the information on this website is at the visitor's own discretion and responsibility.</p>
+    <p>This website may contain external links or embedded third-party content. Patient Centered Dentistry is not responsible for the availability, accuracy, or policies of external platforms or websites.</p>
+    <p>All original written content, design, and website structure belong to the site creator unless otherwise stated. Limited quoting or referencing for educational purposes is permitted with proper attribution.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SUBPAGE: CONTACT
+══════════════════════════════════════════════════ -->
+<div id="subpage-contact" class="subpage">
+  <div class="subpage-content">
+    <button class="subpage-back" onclick="closeSubPage()">← Back</button>
+    <div class="subpage-eyebrow">Get in Touch</div>
+    <h1>Contact</h1>
+
+    <p>Questions, feedback, or collaboration inquiries are welcome.</p>
+    <p>This project is focused on patient experience, communication, accessibility, and systems within dental care and healthcare environments.</p>
+    <p>Contact information and additional links may be added in the future.</p>
+  </div>
+</div>
+
 <script>
+  let _lastPage = 'home';
+
   function showPage(id) {
+    // Hide any open subpages
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     event.currentTarget.classList.add('active');
     window.scrollTo(0, 0);
+    _lastPage = id;
+  }
+
+  function showSubPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+    document.getElementById('subpage-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function closeSubPage() {
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+    const pg = document.getElementById('page-' + _lastPage);
+    if (pg) pg.classList.add('active');
+    // Re-highlight nav
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(_lastPage)) {
+        b.classList.add('active');
+      }
+    });
+    window.scrollTo(0, 0);
   }
 </script>
 </body>
 </html>
+
