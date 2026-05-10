@@ -832,14 +832,31 @@
   }
 
   /* ─── VIDEO EMBED ─── */
+  .video-section {
+    max-width: 480px;
+    margin: 24px 0 0;
+  }
+  .video-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+  }
+  .video-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
   .video-wrap {
-    max-width: 700px;
-    margin: 40px auto 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(13,32,53,0.12);
     position: relative;
     padding-top: 56.25%;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(13,32,53,0.1);
     background: var(--navy);
   }
   .video-wrap iframe {
@@ -847,6 +864,9 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     border: none;
+  }
+  @media (max-width: 680px) {
+    .video-section { max-width: 100%; }
   }
 </style>
 </head>
@@ -905,8 +925,12 @@
 
 
   <div class="content" style="padding-top:0;padding-bottom:48px;">
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=12&end=78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-section">
+      <div class="video-label">Related Video</div>
+      <div class="video-title">Introduction to Patient Experience in Dentistry (0:12–1:18)</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=12&end=78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 
@@ -1061,8 +1085,12 @@
   </div>
 
   <div class="content" style="padding-top:0;padding-bottom:48px;">
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=78&end=170" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-section">
+      <div class="video-label">Related Video</div>
+      <div class="video-title">Setting Expectations &amp; Patient Anxiety (1:18–2:50)</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=78&end=170" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 
@@ -1325,8 +1353,12 @@
   </div>
 
   <div class="content" style="padding-top:0;padding-bottom:48px;">
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=170&end=260" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-section">
+      <div class="video-label">Related Video</div>
+      <div class="video-title">Communication Systems in Dental Care (2:50–4:20)</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/JxSWu9GgjjM?start=170&end=260" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 
